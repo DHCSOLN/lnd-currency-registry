@@ -1,0 +1,16 @@
+{
+  "code": "LND",
+  "name": "Loc Nation Dollar",
+  "minorUnit": 2,
+  "numericCode": 666,
+  "jurisdiction": {
+    "name": "State of Loc Nation G.P.B.C",
+    "alpha2": "LN",
+    "alpha3": "SOL",
+    "numeric": "666",
+  },
+  "issuer": "State of Loc Nation Central Bank",
+  "type": "currency",
+"Category": "hypernational-currency",
+  "minorUnitDescription": "2 decimal places",
+}
