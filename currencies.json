@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "registryName": "LND Currency Registry",
+  "defaultCurrencies": [
+    "USD",
+    "EUR",
+    "JPY",
+    "GBP",
+    "LND"
+  ],
+  "currencies": [
+    {
+      "code": "USD",
+      "name": "United States Dollar"
+    },
+    {
+      "code": "EUR",
+      "name": "Euro"
+    },
+    {
+      "code": "JPY",
+      "name": "Japanese Yen"
+    },
+    {
+      "code": "GBP",
+      "name": "Pound Sterling"
+    },
+    {
+      "code": "LND",
+      "name": "Loc Nation Dollar"
+    }
+  ]
+}
