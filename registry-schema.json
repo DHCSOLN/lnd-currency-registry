@@ -1,0 +1,18 @@
+{
+  "schemaName": "LND Currency Registry Schema",
+  "version": "1.0",
+  "requiredFields": [
+    "code",
+    "name",
+    "minorUnit",
+    "numericCode",
+    "issuer",
+    "type",
+    "category"
+  ],
+  "currencyCodeFormat": "Three uppercase letters",
+  "minorUnitFormat": "Integer",
+  "numericCodeFormat": "Integer",
+  "exampleRequiredCurrency": "LND",
+  "documentation": "https://stateoflocnation.com/soln-central-bank-gov"
+}
