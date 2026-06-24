@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LND Currency Dropdown Example</title>
+</head>
+<body>
+  <h1>LND Currency Dropdown Example</h1>
+
+  <label for="currency">Choose Currency:</label>
+  <select id="currency"></select>
+
+  <script>
+    async function loadCurrencies() {
+      const response = await fetch("../currencies.json");
+      const registry = await response.json();
+
+      const dropdown = document.getElementById("currency");
+
+      registry.currencies.forEach(currency => {
+        const option = document.createElement("option");
+        option.value = currency.code;
+        option.textContent = `${currency.code} - ${currency.name}`;
+        dropdown.appendChild(option);
+      });
+    }
+
+    loadCurrencies();
+  </script>
+</body>
+</html>
