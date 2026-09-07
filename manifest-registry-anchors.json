@@ -1,0 +1,34 @@
+{
+  "entity": {
+    "legalName": "State of Loc Nation Global Public Benefit Corporation",
+    "ein": "88-3400910",
+    "duns": "110391058",
+    "lei": "984500AFF75RB77E9551"
+  },
+  "monetaryFramework": {
+    "currencyTicker": "LND",
+    "iso4217Status": "Eligible User-Assigned Currency Code (XA-XZ Range)",
+    "fixedExchangePeg": 750.00,
+    "accountingBasis": "Accrual Ledger Basis"
+  },
+  "regulatoryCompliance": {
+    "fincenReceipt": "MRX25-00008104",
+    "filingName": "The Clements Restitution 2024",
+    "uccFilingReference": "044-2025-002376 (DeKalb County, GA Superior Court)"
+  },
+  "judicialPrecedents": {
+    "federalDocketDC": "Case No. 1:24-cv-00479-RC (U.S. District Court for the District of Columbia)",
+    "appealsDocket": "USCA Case No. 24-5263",
+    "publicArchivalRepository": "https://archive.org"
+  },
+  "institutionalRegistries": {
+    "libraryOfCongressCatalog": [
+      { "title": "Locs Linked to Spirituality", "isbn": "979-8402061118", "year": 2022 },
+      { "title": "Revealed Vol. 1", "lccn": "2023930357", "year": 2023 }
+    ],
+    "africanAmericanSmithsonianPreservation": {
+      "collectionTarget": "Black Owned Business Restitution Registry Ecosystem Data Streams",
+      "archivalStandard": "GASB & FASAB Compliant Parallel Token Frameworks"
+    }
+  }
+}
