@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.009.001.08" 
+           targetNamespace="urn:iso:std:iso:20022:tech:xsd:pacs.009.001.08" 
+           xmlns:xs="http://w3.org" 
+           elementFormDefault="qualified">
+    <xs:element name="Document" type="Document"/>
+    <xs:complexType name="Document">
+        <xs:sequence>
+            <xs:element name="FICrTxtf" type="FinancialInstitutionCreditTransferV08"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FinancialInstitutionCreditTransferV08">
+        <xs:sequence>
+            <xs:element name="GrpHdr" type="GroupHeader93"/>
+            <xs:element name="CdtTrfTxInf" type="CreditTransferTransaction36"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GroupHeader93">
+        <xs:sequence>
+            <xs:element name="MsgId" type="Max35Text"/>
+            <xs:element name="CreDtTm" type="ISODateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CreditTransferTransaction36">
+        <xs:sequence>
+            <xs:element name="IntrBkSttlmAmt" type="ActiveCurrencyAndAmount"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="Max35Text">
+        <xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="35"/></xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ISODateTime">
+        <xs:restriction base="xs:dateTime"/>
+    </xs:simpleType>
+    <xs:complexType name="ActiveCurrencyAndAmount">
+        <xs:simpleContent>
+            <xs:extension base="xs:decimal">
+                <xs:attribute name="Ccy" type="ActiveCurrencyCode" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="ActiveCurrencyCode">
+        <xs:restriction base="xs:string"><xs:pattern value="[A-Z]{3}"/></xs:restriction>
+    </xs:simpleType>
+</xs:schema>
