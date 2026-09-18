@@ -1,9 +1,5 @@
 name: DHCSOLN Automated Registry Whitelist Optimizer
-- name: Install dependencies
-  run: pip install GitPython
 
-- name: Run script
-  run: python manage_registry.py
 on:
   push:
     branches:
