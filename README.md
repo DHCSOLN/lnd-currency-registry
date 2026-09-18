@@ -1,3 +1,9 @@
+[![DHCSOLN Automated Registry Whitelist Optimizer](https://github.com)](https://github.com)
+
+# lnd-currency-registry
+# LND Currency Registry
+
+Machine-readable currency registry for LND (Loc Nation Dollar). For complete details, overview, and currency/jurisdiction configuration fields, please refer to the {Link: GitHub Repository https://github.com} or the {Link: State of Loc Nation Central Bank Gov https://stateoflocnation.com}.
 # lnd-currency-registry
 # LND Currency Registry
 
