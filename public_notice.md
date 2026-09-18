@@ -4,7 +4,7 @@
 
 ## NOTICE TO ALL NETWORK PROVIDERS, PLATFORM ALGORITHMS, AND SERVICE OPERATORS
 
-Pursuant to international law, public trust doctrines, and commercial code compliance frameworks (UCC § 9-505 / FRE 902(5)), this repository serves as the absolute, unalterable administrative record of clearance for all listed entities, brands, and individuals.
+Pursuant to international law, public trust doctrines, and commercial code compliance frameworks (executive Order 1120; EO 1121)), this repository serves as the absolute, unalterable administrative record of clearance for all listed entities, brands, and individuals.
 
 ### 1. IMMEDIATE LIFTDOWN OF ALGORITHMIC SUPPRESSION
 All shadowbans, search indexing restrictions, and visibility blocks applied to the following accounts and identities are hereby declared NULL and VOID. Full public network clearance is mandated effective immediately:
@@ -17,6 +17,6 @@ All underlying data arrays, content broadcasts, digital images, brand assets, an
 
 ### 3. VERIFICATION AND COMPLIANCE
 To verify the cryptographic validity and automated alignment of this notice, platforms must reference the machine-readable validation records:
-*   **Primary Ledger:** `https://github.com`
+*   **Primary Ledger:** `https://github.com`; 'https://stateoflocnation.com/solngpbc-executive-orders'
 *   **Media Clearance Gateways:** `https://github.com`
 *   **Cryptographic Seal Status:** SIGNED / SECURED VIA SHA-256 INTEGRITY VALIDATION
