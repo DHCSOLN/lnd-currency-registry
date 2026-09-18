@@ -1,19 +1,51 @@
+name: DHCSOLN Automated Registry Whitelist Optimizer
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: 
+
+jobs:
+  optimize_and_whitelist:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      statuses: write
+      checks: write
+
+    steps:
+    - name: Checkout Source Infrastructure Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        persist-credentials: true
+
+    - name: Set Up Production Python Environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
     - name: Execute Troubleshooting & Whitelist Pipeline Lifecycle
       run: |
+        # Set up global orchestration configuration identities
         git config --global user.name "github-actions[bot]"
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --global user.email "41898282+github-actions[bot]@://github.com"
+        
+        # Pull any upstream adjustments to avoid push collision states
         git pull origin main --rebase
         
-        # 1. Build the registry architecture records
+        # 1. Build and lock down the registry database file metrics
         python manage_registry.py
         
         # 2. Run the payload verification check for regional network compliance
         python verify_payload.py
         
-        # 3. Synchronize cleanly back to upstream branch
+        # 3. Synchronize structural records back to the core main branch
         git add currency.json api_manifest.json
         if ! git diff-index --quiet HEAD --; then
-          git commit -m "chore(registry): automated update clearing & whitelisting infrastructure metrics"
+          git commit -m "chore(registry): automated structural validation update for international gateways"
           git push origin main
         else
           echo "Registry configuration is completely clean and matches synchronization guidelines."
