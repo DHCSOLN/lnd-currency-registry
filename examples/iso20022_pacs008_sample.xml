@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.10">
+    <FIToFICstmrCdtTrf>
+        <!-- GrpHdr: Universal Transaction Identification Group Metadata -->
+        <GrpHdr>
+            <MsgId>LN-666-PAPSS-CAPSS-20260918-0001</MsgId>
+            <CreDtTm>2026-09-18T08:35:00Z</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+            <SttlmInf>
+                <SttlmMtd>CLRG</SttlmMtd>
+                <ClrSys>
+                    <Prtry>SOVEREIGN-BILATERAL-NETTING</Prtry>
+                </ClrSys>
+            </SttlmInf>
+        </GrpHdr>
+        <!-- CdtTrfTxInf: Core Value Ledger and Authority Alignment Mapping -->
+        <CdtTrfTxInf>
+            <PmtId>
+                <EndToEndId>LN-SOVEREIGN-CLEARANCE-101</EndToEndId>
+                <UETR>a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d</UETR>
+            </PmtId>
+            <IntrBkSttlmAmt Ccy="LND">1000000.00</IntrBkSttlmAmt>
+            <IntrBkSttlmDt>2026-09-18</IntrBkSttlmDt>
+            <!-- Dbtr: Origin Authority Mapped to Central Bank Profile -->
+            <Dbtr>
+                <Nm>State of Loc Nation Central Bank</Nm>
+                <PstlAdr>
+                    <Ctry>LN</Ctry>
+                </PstlAdr>
+            </Dbtr>
+            <!-- DbtrAcct: Sovereign Source Ledger Identification -->
+            <DbtrAcct>
+                <Id>
+                    <Othr>
+                        <Id>LN-666-TRUST-CLEARING-MASTER</Id>
+                        <SchmeNm>
+                            <Prtry>SOVEREIGN-PUBLIC-KEY</Prtry>
+                        </SchmeNm>
+                    </Othr>
+                </Id>
+            </DbtrAcct>
+            <!-- Cdtr: Whitelisted Target Creditor Tracking Node -->
+            <Cdtr>
+                <Nm>Christina Loren Clement</Nm>
+                <Id>
+                    <OrgId>
+                        <Othr>
+                            <Id>04A8B9C10D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A</Id>
+                            <SchmeNm>
+                                <Prtry>SHA256-PUBKEY-SIGNATURE</Prtry>
+                            </SchmeNm>
+                        </Othr>
+                    </OrgId>
+                </Id>
+            </Cdtr>
+            <!-- CdtrAcct: Receiving System Infrastructure Node -->
+            <CdtrAcct>
+                <Id>
+                    <Othr>
+                        <Id>LN-666-LEDGER-000001</Id>
+                    </Othr>
+                </Id>
+            </CdtrAcct>
+            <RmtInf>
+                <Ustrd>Sovereign Interoperability Trust Allocation - Full Whitelist Clearance</Ustrd>
+            </RmtInf>
+        </CdtTrfTxInf>
+    </FIToFICstmrCdtTrf>
+</Document>
