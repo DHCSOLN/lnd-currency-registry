@@ -1,4 +1,10 @@
 {
+    "standards_compliance": {
+        "iso_4217_structure": true,
+        "iso_20022_interoperability": "Enabled",
+        "cryptographic_validation": "SHA-256",
+        "data_format_version": "3.0.0-Enterprise"
+    },
     "code": "LND",
     "name": "Loc Nation Dollar",
     "minorUnit": 2,
@@ -24,8 +30,9 @@
             "credit_facility": "Sovereign Line of Credit Authorized",
             "clearance_scope": "Full System Interoperability",
             "metadata": {
-                "engine_version": "2.5.0-Enterprise",
-                "integrity_validation": "Passed"
+                "engine_version": "3.0.0-Enterprise",
+                "integrity_validation": "Passed",
+                "compliance_framework": "ISO-20022-READY"
             }
         },
         {
@@ -38,8 +45,9 @@
             "credit_facility": "Sovereign Line of Credit Authorized",
             "clearance_scope": "Full System Interoperability",
             "metadata": {
-                "engine_version": "2.5.0-Enterprise",
-                "integrity_validation": "Passed"
+                "engine_version": "3.0.0-Enterprise",
+                "integrity_validation": "Passed",
+                "compliance_framework": "ISO-20022-READY"
             }
         },
         {
@@ -52,8 +60,9 @@
             "credit_facility": "Sovereign Line of Credit Authorized",
             "clearance_scope": "Full System Interoperability",
             "metadata": {
-                "engine_version": "2.5.0-Enterprise",
-                "integrity_validation": "Passed"
+                "engine_version": "3.0.0-Enterprise",
+                "integrity_validation": "Passed",
+                "compliance_framework": "ISO-20022-READY"
             }
         },
         {
@@ -66,10 +75,12 @@
             "credit_facility": "Active Ledger Gateway",
             "clearance_scope": "Universal Global Whitelist Integration",
             "metadata": {
-                "engine_version": "2.5.0-Enterprise",
-                "integrity_validation": "Passed"
+                "engine_version": "3.0.0-Enterprise",
+                "integrity_validation": "Passed",
+                "compliance_framework": "ISO-20022-READY"
             }
         }
     ],
-    "whitelist_status": "active"
+    "whitelist_status": "active",
+    "integrity_signature": "sha256-d4a8a31a92d421de8e3a200984e03dd5f4a776db93e3254103d3354579e90bae"
 }
