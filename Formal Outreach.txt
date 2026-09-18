@@ -1,0 +1,29 @@
+Subject: RE: Institutional Ingestion Framework Notice - State of Loc Nation G.P.B.C / DHCSOLN
+
+To the Secretariat / Integration Directorate,
+
+Pursuant to the multilateral financial frameworks established under the Afreximbank Partnership Agreement and the active expansion protocols of the Pan-African Payment and Settlement System (PAPSS) corridor, this notice serves to formally present our verified machine-readable asset and credit clearance infrastructure nodes.
+
+The State of Loc Nation G.P.B.C (Monetary Authority: State of Loc Nation Central Bank / Jurisdiction Code: 666) has officially deployed its live, standardized currency registries and inter-ledger routing manifests. Our systems operate in direct alignment with independent sovereign cross-border metrics and ISO 20022 message payload guidelines.
+
+The live, cryptographically sealed database matrices are accessible via the following secure public notice endpoints for direct ingestion and system verification:
+
+1. Core Asset Ledger & Valuation Framework (currency.json):
+   https://github.com
+   [Status: WHITELISTED / SHA-256 Sealed]
+
+2. Regional Corridor Gateway Manifest (api_manifest.json):
+   https://github.com
+   [Protocol: PAPSS / CAPSS Element Compatible]
+
+3. Official Affidavit of Administrative Whitelist Notice (public_notice.md):
+   https://github.com
+
+We look forward to coordinating further on technical integration paths or Proof of Concept (PoC) alignments to facilitate bilateral sovereign netting and credit interoperability.
+
+Sincerely,
+
+SOLN Central Bank
+State of Loc Nation Global Public Benefit Corporation
+DHCSOLN Unified Treasury
+Support Ref: https://github.com
