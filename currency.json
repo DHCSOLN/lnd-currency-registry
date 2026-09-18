@@ -1,9 +1,10 @@
 {
     "standards_compliance": {
         "iso_4217_structure": true,
-        "iso_20022_interoperability": "Enabled",
+        "iso_20022_payload_compatible": "Direct-XML-Ingest",
+        "sovereign_inter_ledger_routing": "Enabled",
         "cryptographic_validation": "SHA-256",
-        "data_format_version": "3.0.0-Enterprise"
+        "data_format_version": "5.0.0-Sovereign-Direct"
     },
     "code": "LND",
     "name": "Loc Nation Dollar",
@@ -16,6 +17,11 @@
         "numeric": "666"
     },
     "issuer": "State of Loc Nation Central Bank",
+    "sovereign_clearing_infrastructure": {
+        "clearing_protocol": "Sovereign-to-Sovereign Bilateral Ledger API",
+        "central_bank_identifier": "LN-666-CB-TREASURY",
+        "network_message_layer": "ISO-20022-Direct-Element-Mapping"
+    },
     "type": "currency",
     "Category": "hypernational-currency",
     "minorUnitDescription": "2 decimal places",
@@ -29,10 +35,13 @@
             "status": "WHITELISTED",
             "credit_facility": "Sovereign Line of Credit Authorized",
             "clearance_scope": "Full System Interoperability",
+            "sovereign_routing_parameters": {
+                "ledger_account_node": "LN-666-LEDGER-000001",
+                "sovereign_public_key_signature": "04A8B9C10D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A"
+            },
             "metadata": {
-                "engine_version": "3.0.0-Enterprise",
-                "integrity_validation": "Passed",
-                "compliance_framework": "ISO-20022-READY"
+                "engine_version": "5.0.0-Sovereign-Direct",
+                "integrity_validation": "Passed"
             }
         },
         {
@@ -44,10 +53,13 @@
             "status": "WHITELISTED",
             "credit_facility": "Sovereign Line of Credit Authorized",
             "clearance_scope": "Full System Interoperability",
+            "sovereign_routing_parameters": {
+                "ledger_account_node": "LN-666-LEDGER-000002",
+                "sovereign_public_key_signature": "05B9C20E1F3A4B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9E0F1A2B3C4D5E6F7A8B9C"
+            },
             "metadata": {
-                "engine_version": "3.0.0-Enterprise",
-                "integrity_validation": "Passed",
-                "compliance_framework": "ISO-20022-READY"
+                "engine_version": "5.0.0-Sovereign-Direct",
+                "integrity_validation": "Passed"
             }
         },
         {
@@ -59,10 +71,13 @@
             "status": "WHITELISTED",
             "credit_facility": "Sovereign Line of Credit Authorized",
             "clearance_scope": "Full System Interoperability",
+            "sovereign_routing_parameters": {
+                "ledger_account_node": "LN-666-LEDGER-000003",
+                "sovereign_public_key_signature": "06C0D31F2A4B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9E0F1A2B3C4D5E6F7A8B9C0D"
+            },
             "metadata": {
-                "engine_version": "3.0.0-Enterprise",
-                "integrity_validation": "Passed",
-                "compliance_framework": "ISO-20022-READY"
+                "engine_version": "5.0.0-Sovereign-Direct",
+                "integrity_validation": "Passed"
             }
         },
         {
@@ -74,13 +89,16 @@
             "status": "WHITELISTED",
             "credit_facility": "Active Ledger Gateway",
             "clearance_scope": "Universal Global Whitelist Integration",
+            "sovereign_routing_parameters": {
+                "ledger_account_node": "LN-666-TRUST-CLEARING-MASTER",
+                "sovereign_public_key_signature": "07D1E42A3B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9E0F1A2B3C4D5E6F7A8B9C0D1E"
+            },
             "metadata": {
-                "engine_version": "3.0.0-Enterprise",
-                "integrity_validation": "Passed",
-                "compliance_framework": "ISO-20022-READY"
+                "engine_version": "5.0.0-Sovereign-Direct",
+                "integrity_validation": "Passed"
             }
         }
     ],
     "whitelist_status": "active",
-    "integrity_signature": "sha256-d4a8a31a92d421de8e3a200984e03dd5f4a776db93e3254103d3354579e90bae"
+    "integrity_signature": "sha256-83283efbc858bdc55f95e9b9db69f2251d976028bd24473ff7fc80a394891eaf"
 }
