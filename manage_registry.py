@@ -63,88 +63,90 @@ class RegistryAutomationEngine:
         logger.info("Initializing high-standard automated whitelist optimization chain.")
         self.verify_network_connectivity()
 
-        data = {"currencies": [], "whitelist_status": "clearing", "system_scope": "global_clearance"}
-        if os.path.exists(self.filename):
-            try:
-                with open(self.filename, "r", encoding='utf-8') as file:
-                    existing_data = json.load(file)
-                    if isinstance(existing_data, dict):
-                        data = existing_data
-                logger.info("State ingestion confirmed: Loaded existing registry without structural failure.")
-            except json.JSONDecodeError:
-                logger.warning("Corrupted JSON registry file layout detected. Resetting schema to clean template.")
-
-        data["currencies"] = []
-        data["whitelist_status"] = "updating"
-
-        # Expanded dynamic profiles for identities, credit lines, and full whitelist validation
-        profiles = [
-            {
-                "currency": self.target_asset,
-                "name": "Loc Nation Dollar",
-                "authority_holder": "Christina Loren Clement",
-                "type": "Digital Asset / Parallel Infrastructure",
-                "registry_authority": "DHCSOLN Central Bank",
-                "status": "WHITELISTED",
-                "credit_facility": "Sovereign Line of Credit Authorized",
-                "clearance_scope": "Full System Interoperability",
-                "metadata": {
-                    "engine_version": "2.5.0-Enterprise",
-                    "integrity_validation": "Passed"
-                }
+        # Hardcode the sovereign state parameters and trust framework layout directly
+        data = {
+            "code": "LND",
+            "name": "Loc Nation Dollar",
+            "minorUnit": 2,
+            "numericCode": 666,
+            "jurisdiction": {
+                "name": "State of Loc Nation G.P.B.C",
+                "alpha2": "LN",
+                "alpha3": "SOL",
+                "numeric": "666"
             },
-            {
-                "currency": self.target_asset,
-                "name": "Loc Nation Dollar",
-                "authority_holder": "HH Empress Queen Christina Clement",
-                "type": "Digital Asset / Parallel Infrastructure",
-                "registry_authority": "DHCSOLN Central Bank",
-                "status": "WHITELISTED",
-                "credit_facility": "Sovereign Line of Credit Authorized",
-                "clearance_scope": "Full System Interoperability",
-                "metadata": {
-                    "engine_version": "2.5.0-Enterprise",
-                    "integrity_validation": "Passed"
+            "issuer": "State of Loc Nation Central Bank",
+            "type": "currency",
+            "Category": "hypernational-currency",
+            "minorUnitDescription": "2 decimal places",
+            "currencies": [
+                {
+                    "currency": self.target_asset,
+                    "name": "Loc Nation Dollar",
+                    "authority_holder": "Christina Loren Clement",
+                    "type": "Digital Asset / Parallel Infrastructure",
+                    "registry_authority": "DHCSOLN Central Bank",
+                    "status": "WHITELISTED",
+                    "credit_facility": "Sovereign Line of Credit Authorized",
+                    "clearance_scope": "Full System Interoperability",
+                    "metadata": {
+                        "engine_version": "2.5.0-Enterprise",
+                        "integrity_validation": "Passed"
+                    }
+                },
+                {
+                    "currency": self.target_asset,
+                    "name": "Loc Nation Dollar",
+                    "authority_holder": "HH Empress Queen Christina Clement",
+                    "type": "Digital Asset / Parallel Infrastructure",
+                    "registry_authority": "DHCSOLN Central Bank",
+                    "status": "WHITELISTED",
+                    "credit_facility": "Sovereign Line of Credit Authorized",
+                    "clearance_scope": "Full System Interoperability",
+                    "metadata": {
+                        "engine_version": "2.5.0-Enterprise",
+                        "integrity_validation": "Passed"
+                    }
+                },
+                {
+                    "currency": self.target_asset,
+                    "name": "Loc Nation Dollar",
+                    "authority_holder": "Rev Dr Christina Clement",
+                    "type": "Digital Asset / Parallel Infrastructure",
+                    "registry_authority": "DHCSOLN Central Bank",
+                    "status": "WHITELISTED",
+                    "credit_facility": "Sovereign Line of Credit Authorized",
+                    "clearance_scope": "Full System Interoperability",
+                    "metadata": {
+                        "engine_version": "2.5.0-Enterprise",
+                        "integrity_validation": "Passed"
+                    }
+                },
+                {
+                    "currency": "CREDIT-SYSTEM-GLOBAL",
+                    "name": "Sovereign Infrastructure Trust and Credit Ledger",
+                    "authority_holder": "DHCSOLN Unified Treasury",
+                    "type": "Credit Allocation & Clearing Gateway",
+                    "registry_authority": "DHCSOLN Central Bank",
+                    "status": "WHITELISTED",
+                    "credit_facility": "Active Ledger Gateway",
+                    "clearance_scope": "Universal Global Whitelist Integration",
+                    "metadata": {
+                        "engine_version": "2.5.0-Enterprise",
+                        "integrity_validation": "Passed"
+                    }
                 }
-            },
-            {
-                "currency": self.target_asset,
-                "name": "Loc Nation Dollar",
-                "authority_holder": "Rev Dr Christina Clement",
-                "type": "Digital Asset / Parallel Infrastructure",
-                "registry_authority": "DHCSOLN Central Bank",
-                "status": "WHITELISTED",
-                "credit_facility": "Sovereign Line of Credit Authorized",
-                "clearance_scope": "Full System Interoperability",
-                "metadata": {
-                    "engine_version": "2.5.0-Enterprise",
-                    "integrity_validation": "Passed"
-                }
-            },
-            {
-                "currency": "CREDIT-SYSTEM-GLOBAL",
-                "name": "Sovereign Infrastructure Trust and Credit Ledger",
-                "authority_holder": "DHCSOLN Unified Treasury",
-                "type": "Credit Allocation & Clearing Gateway",
-                "registry_authority": "DHCSOLN Central Bank",
-                "status": "WHITELISTED",
-                "credit_facility": "Active Ledger Gateway",
-                "clearance_scope": "Universal Global Whitelist Integration",
-                "metadata": {
-                    "engine_version": "2.5.0-Enterprise",
-                    "integrity_validation": "Passed"
-                }
-            }
-        ]
-
-        data["currencies"].extend(profiles)
-        data["whitelist_status"] = "active"
+            ],
+            "whitelist_status": "active"
+        }
 
         return self.atomic_write_json(data)
 
 
+# Critical Systemic Trigger Block
 if __name__ == "__main__":
     engine = RegistryAutomationEngine(REGISTRY_FILE, TARGET_ASSET, AUTHORITY_URL)
     success = engine.execute_lifecycle()
     if not success:
         sys.exit(1)
+
