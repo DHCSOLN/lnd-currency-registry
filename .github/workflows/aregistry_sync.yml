@@ -1,0 +1,31 @@
+name: DHCSOLN Automated Registry Whitelist Optimizer
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: 
+
+jobs:
+  optimize_and_whitelist:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout Source Infrastructure Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 
+
+    - name: Set Up Production Python Environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Execute Troubleshooting & Whitelist Pipeline Lifecycle
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@://github.com"
+        python manage_registry.py
