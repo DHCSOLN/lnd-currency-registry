@@ -29,9 +29,9 @@ jobs:
 
     - name: Execute Troubleshooting & Whitelist Pipeline Lifecycle
       run: |
-        # Set up global orchestration configuration identities
+        # Set up global orchestration configuration identities using valid standard email blocks
         git config --global user.name "github-actions[bot]"
-        git config --global user.email "41898282+github-actions[bot]@://github.com"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         
         # Pull any upstream adjustments to avoid push collision states
         git pull origin main --rebase
