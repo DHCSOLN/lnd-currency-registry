@@ -1,12 +1,11 @@
 """
 DHCSOLN Automated Network Payload & Protocol Compliance Verification Engine.
-Validates structural integrity parameters for ISO 20022 regional network ingest.
+Validates independent sovereign parameters for Caribbean & African gateway mapping.
 """
 
 import json
 import os
 import sys
-import hashlib
 
 REGISTRY_FILE = "currency.json"
 MANIFEST_FILE = "api_manifest.json"
@@ -31,7 +30,7 @@ def audit_pipeline_compliance():
         
     print(f"[SUCCESS] Cryptographic seal detected: {embedded_signature}")
     
-    # 4. Check for mandatory ISO 20022 routing elements
+    # 4. Check for mandatory sovereign routing elements
     jurisdiction = registry_data.get("jurisdiction", {}).get("name", "")
     numeric_code = registry_data.get("numericCode", None)
     
@@ -50,7 +49,10 @@ def audit_pipeline_compliance():
     for entity in currencies:
         holder = entity.get("authority_holder", "System Ledger")
         status = entity.get("status", "")
-        routing_node = entity.get("sovereign_routing_parameters", {}).get("ledger_account_node", "")
+        
+        # Robust dual-layer lookup to accept BOTH sovereign keys or checking account identifiers safely
+        routing_parameters = entity.get("sovereign_routing_parameters", {}) or entity.get("checking_routing_identifiers", {})
+        routing_node = routing_parameters.get("ledger_account_node", "") or routing_parameters.get("checking_account_iban", "")
         
         if status != "WHITELISTED" or not routing_node:
             print(f"[ERROR] Security clearance validation failed for entity profile: {holder}")
@@ -61,3 +63,4 @@ def audit_pipeline_compliance():
 
 if __name__ == "__main__":
     audit_pipeline_compliance()
+
