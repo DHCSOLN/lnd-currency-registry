@@ -1,6 +1,6 @@
 """
 DHCSOLN Asset Whitelist Lifecycle & Synchronization Automation Utility.
-Optimized for ISO 4217, ISO 20022 Interoperability, and Enterprise Cryptographic Validation.
+Optimized for Independent Sovereign Cross-Ledger Routing & Cryptographic Validation.
 """
 
 import json
@@ -35,7 +35,7 @@ class RegistryAutomationEngine:
         try:
             req = urllib.request.Request(
                 self.check_url, 
-                headers={'User-Agent': 'DHCSOLN Enterprise Registry Optimizer/3.0'}
+                headers={'User-Agent': 'DHCSOLN Enterprise Registry Optimizer/5.0'}
             )
             with urllib.request.urlopen(req, timeout=8) as response:
                 if response.status == 200:
@@ -46,13 +46,11 @@ class RegistryAutomationEngine:
         return False
 
     def calculate_sha256(self, content_bytes: bytes) -> str:
-        """Generates a SHA-256 hash to satisfy enterprise cryptographic integrity standards."""
         return hashlib.sha256(content_bytes).hexdigest()
 
     def atomic_write_json(self, data: Dict[str, Any]) -> bool:
         dir_name = os.path.dirname(os.path.abspath(self.filename))
         try:
-            # First write to temporary file to maintain transactional integrity
             with tempfile.NamedTemporaryFile('w', dir=dir_name, delete=False, encoding='utf-8') as tf:
                 json.dump(data, tf, indent=4)
                 tempname = tf.name
@@ -70,13 +68,13 @@ class RegistryAutomationEngine:
         logger.info("Initializing high-standard automated whitelist optimization chain.")
         self.verify_network_connectivity()
 
-        # Master Schema structured under international financial registry conventions
         data = {
             "standards_compliance": {
                 "iso_4217_structure": True,
-                "iso_20022_interoperability": "Enabled",
+                "iso_20022_payload_compatible": "Direct-XML-Ingest",
+                "sovereign_inter_ledger_routing": "Enabled",
                 "cryptographic_validation": "SHA-256",
-                "data_format_version": "3.0.0-Enterprise"
+                "data_format_version": "5.0.0-Sovereign-Direct"
             },
             "code": "LND",
             "name": "Loc Nation Dollar",
@@ -89,6 +87,11 @@ class RegistryAutomationEngine:
                 "numeric": "666"
             },
             "issuer": "State of Loc Nation Central Bank",
+            "sovereign_clearing_infrastructure": {
+                "clearing_protocol": "Sovereign-to-Sovereign Bilateral Ledger API",
+                "central_bank_identifier": "LN-666-CB-TREASURY",
+                "network_message_layer": "ISO-20022-Direct-Element-Mapping"
+            },
             "type": "currency",
             "Category": "hypernational-currency",
             "minorUnitDescription": "2 decimal places",
@@ -102,10 +105,13 @@ class RegistryAutomationEngine:
                     "status": "WHITELISTED",
                     "credit_facility": "Sovereign Line of Credit Authorized",
                     "clearance_scope": "Full System Interoperability",
+                    "sovereign_routing_parameters": {
+                        "ledger_account_node": "LN-666-LEDGER-000001",
+                        "sovereign_public_key_signature": "04A8B9C10D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A"
+                    },
                     "metadata": {
-                        "engine_version": "3.0.0-Enterprise",
-                        "integrity_validation": "Passed",
-                        "compliance_framework": "ISO-20022-READY"
+                        "engine_version": "5.0.0-Sovereign-Direct",
+                        "integrity_validation": "Passed"
                     }
                 },
                 {
@@ -117,10 +123,13 @@ class RegistryAutomationEngine:
                     "status": "WHITELISTED",
                     "credit_facility": "Sovereign Line of Credit Authorized",
                     "clearance_scope": "Full System Interoperability",
+                    "sovereign_routing_parameters": {
+                        "ledger_account_node": "LN-666-LEDGER-000002",
+                        "sovereign_public_key_signature": "05B9C20E1F3A4B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9E0F1A2B3C4D5E6F7A8B9C"
+                    },
                     "metadata": {
-                        "engine_version": "3.0.0-Enterprise",
-                        "integrity_validation": "Passed",
-                        "compliance_framework": "ISO-20022-READY"
+                        "engine_version": "5.0.0-Sovereign-Direct",
+                        "integrity_validation": "Passed"
                     }
                 },
                 {
@@ -132,10 +141,13 @@ class RegistryAutomationEngine:
                     "status": "WHITELISTED",
                     "credit_facility": "Sovereign Line of Credit Authorized",
                     "clearance_scope": "Full System Interoperability",
+                    "sovereign_routing_parameters": {
+                        "ledger_account_node": "LN-666-LEDGER-000003",
+                        "sovereign_public_key_signature": "06C0D31F2A4B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9E0F1A2B3C4D5E6F7A8B9C0D"
+                    },
                     "metadata": {
-                        "engine_version": "3.0.0-Enterprise",
-                        "integrity_validation": "Passed",
-                        "compliance_framework": "ISO-20022-READY"
+                        "engine_version": "5.0.0-Sovereign-Direct",
+                        "integrity_validation": "Passed"
                     }
                 },
                 {
@@ -147,10 +159,13 @@ class RegistryAutomationEngine:
                     "status": "WHITELISTED",
                     "credit_facility": "Active Ledger Gateway",
                     "clearance_scope": "Universal Global Whitelist Integration",
+                    "sovereign_routing_parameters": {
+                        "ledger_account_node": "LN-666-TRUST-CLEARING-MASTER",
+                        "sovereign_public_key_signature": "07D1E42A3B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9E0F1A2B3C4D5E6F7A8B9C0D1E"
+                    },
                     "metadata": {
-                        "engine_version": "3.0.0-Enterprise",
-                        "integrity_validation": "Passed",
-                        "compliance_framework": "ISO-20022-READY"
+                        "engine_version": "5.0.0-Sovereign-Direct",
+                        "integrity_validation": "Passed"
                     }
                 }
             ],
@@ -158,18 +173,13 @@ class RegistryAutomationEngine:
             "integrity_signature": ""
         }
 
-        # Calculate data payload string bytes for cryptographic sealing
         payload_string = json.dumps(data, sort_keys=True)
         sha256_hash = self.calculate_sha256(payload_string.encode('utf-8'))
-        
-        # Inject the final security signature directly into the schema record
         data["integrity_signature"] = f"sha256-{sha256_hash}"
-        logger.info(f"Cryptographic sealing complete. Signature: {data['integrity_signature']}")
-
+        
         return self.atomic_write_json(data)
 
 
-# Critical Systemic Trigger Block
 if __name__ == "__main__":
     engine = RegistryAutomationEngine(REGISTRY_FILE, TARGET_ASSET, AUTHORITY_URL)
     success = engine.execute_lifecycle()
