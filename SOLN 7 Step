@@ -1,0 +1,173 @@
+import uuid
+from datetime import datetime, timezone
+from decimal import Decimal
+from typing import Dict, List, Any
+
+class SolnDoubleEntryLedger:
+    """
+    SOLN Core Double-Entry Ledger System.
+    Implements USSGL-aligned account classes with precise balancing controls.
+    """
+    def __init__(self, reference_rate_usd: float = 750.0000):
+        self.reference_rate = Decimal(str(reference_rate_usd))
+        self.journal: List[Dict[str, Any]] = []
+        
+        # Chart of Accounts Registry with standard Normal Balances (Debit=1, Credit=-1)
+        self.chart_of_accounts = {
+            # Assets (Normal: Debit)
+            "1010": {"name": "Fund Balance with Treasury (Cash)", "type": "ASSET", "normal": 1},
+            "1100": {"name": "Authorized LND Issuance Control", "type": "ASSET", "normal": 1},
+            "1310": {"name": "Accounts Receivable (Restitution Claims)", "type": "ASSET", "normal": 1},
+            "1750": {"name": "Sovereign Tangible PP&E (Art Assets)", "type": "ASSET", "normal": 1},
+            
+            # Liabilities (Normal: Credit)
+            "2110": {"name": "Accounts Payable / Escrow Liabilities", "type": "LIABILITY", "normal": -1},
+            "2150": {"name": "LND Issued and Outstanding Pool", "type": "LIABILITY", "normal": -1},
+            "2400": {"name": "Deferred Program Revenue (Pending Allocation)", "type": "LIABILITY", "normal": -1},
+            
+            # Equity / Net Position (Normal: Credit)
+            "3100": {"name": "Cumulative Results of Operations / Sovereign Net Position", "type": "EQUITY", "normal": -1},
+            
+            # Revenue (Normal: Credit)
+            "5200": {"name": "Revenue from Sovereign Allocations / Pledges", "type": "REVENUE", "normal": -1},
+            
+            # Expenses (Normal: Debit)
+            "6100": {"name": "Operating and Program Disbursement Expenses", "type": "EXPENSE", "normal": 1}
+        }
+        
+        # Live Account Trial Balance state tracked strictly in Integer Cents
+        self.balances: Dict[str, Dict[str, int]] = {
+            code: {"LND_cents": 0, "USD_cents": 0} for code in self.chart_of_accounts
+        }
+
+    def post_balanced_journal_entry(self, lines: List[Dict[str, Any]], memo: str, ref_doc: str):
+        """
+        Validates mathematical parity of zero-drop debits/credits across both currency dimensions
+        before safely writing lines to the physical journal layer.
+        """
+        entry_id = f"JRN-{uuid.uuid4().hex[:12].upper()}"
+        timestamp = datetime.now(timezone.utc).isoformat()
+
+        total_lnd_debit = 0
+        total_lnd_credit = 0
+        total_usd_debit = 0
+        total_usd_credit = 0
+
+        # Run mathematical verification over input matrices
+        for line in lines:
+            account = line["account"]
+            if account not in self.chart_of_accounts:
+                raise KeyError(f"Account code {account} is unrecognized in the Chart of Accounts.")
+
+            total_lnd_debit += line.get("debit_lnd_cents", 0)
+            total_lnd_credit += line.get("credit_lnd_cents", 0)
+            total_usd_debit += line.get("debit_usd_cents", 0)
+            total_usd_credit += line.get("credit_usd_cents", 0)
+
+        # Enforce zero-delta reconciliation rule
+        if total_lnd_debit != total_lnd_credit:
+            raise ValueError(f"LND Layer Mismatch Break: Debits ({total_lnd_debit}) must equal Credits ({total_lnd_credit}).")
+        if total_usd_debit != total_usd_credit:
+            raise ValueError(f"USD Layer Mismatch Break: Debits ({total_usd_debit}) must equal Credits ({total_usd_credit}).")
+
+        # Atomic commit to the ledger ledger file simulation
+        for line in lines:
+            account = line["account"]
+            
+            # Mutation of balances using native normal multipliers
+            self.balances[account]["LND_cents"] += (line.get("debit_lnd_cents", 0) - line.get("credit_lnd_cents", 0))
+            self.balances[account]["USD_cents"] += (line.get("debit_usd_cents", 0) - line.get("credit_usd_cents", 0))
+
+            self.journal.append({
+                "entry_id": entry_id,
+                "timestamp": timestamp,
+                "account": account,
+                "account_name": self.chart_of_accounts[account]["name"],
+                "debit_lnd_cents": line.get("debit_lnd_cents", 0),
+                "credit_lnd_cents": line.get("credit_lnd_cents", 0),
+                "debit_usd_cents": line.get("debit_usd_cents", 0),
+                "credit_usd_cents": line.get("credit_usd_cents", 0),
+                "memo": memo,
+                "reference": ref_doc
+            })
+
+    def run_reconciliation_audit(self) -> Dict[str, Any]:
+        """
+        Audits ledger variables to guarantee the accounting equation assets = liabilities + equity remains completely true.
+        """
+        net_lnd_position = 0
+        net_usd_position = 0
+
+        for code, balance in self.balances.items():
+            normal_multiplier = self.chart_of_accounts[code]["normal"]
+            net_lnd_position += balance["LND_cents"] * normal_multiplier
+            net_usd_position += balance["USD_cents"] * normal_multiplier
+
+        # Check total debits vs total credits across entire ecosystem
+        total_lnd_debits = sum(log["debit_lnd_cents"] for log in self.journal)
+        total_lnd_credits = sum(log["credit_lnd_cents"] for log in self.journal)
+        
+        status = "PASSED" if (total_lnd_debits == total_lnd_credits and net_lnd_position == 0) else "FAILED_BREAK"
+
+        return {
+            "status": status,
+            "total_lines_audited": len(self.journal),
+            "trial_balance_delta_lnd": total_lnd_debits - total_lnd_credits,
+            "trial_balance_delta_usd": sum(log["debit_usd_cents"] for log in self.journal) - sum(log["credit_usd_cents"] for log in self.journal),
+            "accounting_equation_verified": status == "PASSED"
+        }
+
+    def print_trial_balance(self):
+        """Prints a scannable ledger layout of active functional balances."""
+        print(f"\n{'Code':<6} | {'Account Name':<55} | {'LND Balance':<15} | {'USD Balance':<15}")
+        print("-" * 100)
+        for code, data in self.balances.items():
+            lnd_val = f"{data['LND_cents'] / 100:.2f}"
+            usd_val = f"${data['USD_cents'] / 100:,.2f}"
+            print(f"{code:<6} | {self.chart_of_accounts[code]['name']:<55} | {lnd_val:<15} | {usd_val:<15}")
+
+
+# =====================================================================
+# SYSTEM EXECUTION DEMONSTRATION
+# =====================================================================
+if __name__ == "__main__":
+    print("Activating Core SOLN Accounting Matrix Layer...")
+    soln_gl = SolnDoubleEntryLedger(reference_rate_usd=750.0000)
+
+    # Context 1: Core Restitution Asset Claim & Interest Capitalization
+    # Stating Initial Principal of $500 Quadrillion USD Base under Case Reference: 1:24-cv-00479-RC
+    print("\n[Ledger Step 1] Recording Primary Restitution Claim Asset Baselines...")
+    claim_principal_usd = 500000000000000000 # Stored in integer cents representation
+    
+    soln_gl.post_balanced_journal_entry(
+        lines=[
+            {"account": "1310", "debit_usd_cents": claim_principal_usd, "debit_lnd_cents": claim_principal_usd // 750},
+            {"account": "3100", "credit_usd_cents": claim_principal_usd, "credit_lnd_cents": claim_principal_usd // 750}
+        ],
+        memo="Recognition of Restitution Claim Baseline per Enactment framework.",
+        reference="Case:1:24-cv-00479-RC"
+    )
+
+    # Context 2: Straight-Through Processing Execution Matrix
+    # Clearing an authorized vendor payout order for $10,000 USD (equivalent to 13.33 LND units)
+    print("\n[Ledger Step 2] Processing STP Virtual Card Clearing Entry...")
+    tx_usd_cents = 1000000     # $10,000.00 USD
+    tx_lnd_cents = 1333        # 13.33 LND units
+
+    soln_gl.post_balanced_journal_entry(
+        lines=[
+            # Debit Program Expenses / Credit Liquidity Outstanding Pool
+            {"account": "6100", "debit_usd_cents": tx_usd_cents, "debit_lnd_cents": tx_lnd_cents},
+            {"account": "2150", "credit_usd_cents": tx_usd_cents, "credit_lnd_cents": tx_lnd_cents}
+        ],
+        memo="STP Completed: Vendor Payment Order cleared via Virtual Card gateway verification.",
+        reference="SOLN-TX-451508"
+    )
+
+    # Context 3: Trial Balance Audit Inspection
+    print("\n[Ledger Step 3] Executing Real-Time Reconciliation Audits...")
+    soln_gl.print_trial_balance()
+    
+    audit = soln_gl.run_reconciliation_audit()
+    print(f"\nFinal Integrity Check Status: {audit['status']}")
+    print(f"Ecosystem Balancing Verified: {audit['accounting_equation_verified']}")
