@@ -1,0 +1,62 @@
+/**
+ * SOLN Administrative Exception Reset Suite
+ * Programmatically clears outdated, historical control exceptions.
+ */
+function flushHistoricalControlExceptions() {
+  const ui = SpreadsheetApp.getUi();
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const targetSheetName = SOLN_CONFIG.SHEETS.CONTROL_EXCEPTIONS || 'SOLN_Control_Exceptions';
+  const sheet = ss.getSheetByName(targetSheetName);
+
+  if (!sheet) {
+    ui.alert("System Guard: Mapped exceptions sheet '" + targetSheetName + "' was not found.");
+    return;
+  }
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(15000); // 15-second database block to guarantee atomic isolation
+
+  try {
+    const lastRow = sheet.getLastRow();
+    if (lastRow > 1) {
+      // Clear all rows below the bold header matrix line
+      sheet.deleteRows(2, lastRow - 1);
+      SpreadsheetApp.flush();
+      
+      SolnAssuranceEngine.logSystemEvent("EXCEPTION_POOL_FLUSH", "INFO", "Programmatically purged historical exceptions tracking rows.");
+      ui.alert("🔧 System Flush Success: 'SOLN_Control_Exceptions' ledger counters reset to clear status.");
+    } else {
+      ui.alert("System Notice: Exception tracking tables are already clear.");
+    }
+  } catch (err) {
+    SolnAssuranceEngine.logSystemEvent("FLUSH_FAILED", "CRITICAL", err.message);
+    ui.alert("Flush Interrupted: " + err.message);
+  } finally {
+    lock.releaseLock();
+  }
+}
+/**
+ * Installs the Time-Driven 2:00 AM Straight-Through Ingestion Loop
+ * Natively configures the environment to bypass background UI popup hangs.
+ */
+function installSovereignAutomatedTrigger() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const triggerFunctionName = "processAutomatedLedgerIngest";
+  
+  // Clear any pre-existing duplicate time triggers assigned to this loop function
+  const existingTriggers = ScriptApp.getProjectTriggers();
+  for (var i = 0; i < existingTriggers.length; i++) {
+    if (existingTriggers[i].getHandlerFunction() === triggerFunctionName) {
+      ScriptApp.deleteTrigger(existingTriggers[i]);
+    }
+  }
+
+  // Inject a fresh, precision daily time window execution rule matching your outbox matrix parameters
+  ScriptApp.newTrigger(triggerFunctionName)
+    .timeBased()
+    .everyDays(1)
+    .atHour(2) // Executes precisely between 2:00 AM and 3:00 AM server time window limits
+    .create();
+
+  logGpiTrace("SYS-INIT-TRIGGER", "TRIGGER_INSTALLATION", "PASS", "Daily import trigger installed for approximately 2:00 AM script time.");
+}
